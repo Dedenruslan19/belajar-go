@@ -50,4 +50,3 @@ Agus
 - Tulis nama kedua peserta di bagian atas file Go sebagai komentar.
 - Boleh menggunakan `range`, `append`, dan `delete`.
 - Tidak diperbolehkan menggunakan slice untuk menyimpan semua data utama, hanya untuk hasil filter (jika dibutuhkan).
-- Tugas dikerjakan di luar jam belajar dan dikumpulkan melalui sistem pengumpulan yang ditentukan oleh instruktur.
