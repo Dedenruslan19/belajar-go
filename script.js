@@ -38,6 +38,37 @@
         });
     });
 
+// Login
+    document.addEventListener('DOMContentLoaded', function() {
+        // Ambil semua ikon yang berfungsi sebagai tombol toggle password
+        const toggleIcons = document.querySelectorAll('.password-toggle-icon');
+
+        toggleIcons.forEach(icon => {
+            icon.addEventListener('click', function() {
+                // Dapatkan elemen input yang terkait
+                const passwordInput = this.parentElement.querySelector('input[type="password"], input[type="text"]');
+                
+                // Dapatkan ikon mata di dalam span
+                const eyeIcon = this.querySelector('i');
+
+                // Periksa tipe input password saat ini
+                if (passwordInput.type === 'password') {
+                    // Jika password tersembunyi, ubah menjadi teks
+                    passwordInput.type = 'text';
+                    // Ubah ikon mata menjadi mata yang dicoret (fa-eye-slash)
+                    eyeIcon.classList.remove('fa-eye');
+                    eyeIcon.classList.add('fa-eye-slash');
+                } else {
+                    // Jika password terlihat, ubah kembali menjadi password
+                    passwordInput.type = 'password';
+                    // Ubah ikon kembali menjadi mata (fa-eye)
+                    eyeIcon.classList.remove('fa-eye-slash');
+                    eyeIcon.classList.add('fa-eye');
+                }
+            });
+        });
+    });
+
 // Untuk pagination di page products
     // Ambil elemen-elemen yang dibutuhkan
     const productRow = document.querySelector('.row.g-0');
