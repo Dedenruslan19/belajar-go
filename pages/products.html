@@ -9,100 +9,62 @@
       <link rel="stylesheet" href="/style/style.css">
    </head>
    <body>
-    <!-- Header -->
-      <header class="text-uppercase">
-         <h1 class="fw-bold fs-5 fs-md-4">
-            <span class="border-bottom-line pb-1">Oisac.</span>
-            <span class="border-bottom-line pb-1">com</span>
-         </h1>
-         <!-- Navigasi -->
-         <nav class="d-flex small">
-            <ul class="custom-navbar-nav list-unstyled d-flex gap-3">
-               <li class="nav-item">
-                  <a class="nav-link text-muted" href="/index.html">[ Home ]</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link text-muted" href="/pages/products.html">[ Products ]</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link text-muted" href="/pages/gallery.html">[ Gallery ]</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link text-muted" href="/pages/about.html">[ About Us ]</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link text-muted" href="/pages/connect.html">[ Connect ]</a>
-               </li>
-            </ul>
-         </nav>
-         <!-- Login -->
-         <a href="#" class="small text-decoration-none text-black login-link" data-bs-toggle="modal" data-bs-target="#myModal">
-         <span class="me-2">LOGIN</span>
-         </a>
-      </header>
-
-      <!-- Main-content -->
-        <main>
+      <div class="container-fluid" id="main-container">
+         <div id="header-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+         </div>
+         <main>
             <h2 class="display-5 fw-bold text-uppercase mb-3 mt-3 border-bottom border-black pb-3">Products</h2>
-            
             <div class="row g-0 border-top border-start border-black mb-3">
-                <!-- Kolom Products -->
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product1.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-1</h3>
-                    <p class="uppercase mt-2">Automatic Movement</p>
-                </div>
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product2.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-2</h3>
-                    <p class="uppercase mt-2">Quartz</p>
-                </div>
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product5.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-3</h3>
-                    <p class="uppercase mt-2">Solar</p>
-                </div>
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product4.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-4</h3>
-                    <p class="uppercase mt-2">Mechanical Watch</p>
-                </div>
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product3.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-5</h3>
-                    <p class="uppercase mt-2">Digital Watch</p>
-                </div>
-                <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
-                    <img src="/assets/product6.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
-                    <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-6</h3>
-                    <p class="uppercase mt-2">Solar</p>
-                </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product1.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-1</h3>
+                  <p class="uppercase mt-2">Automatic Movement</p>
+               </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product2.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-2</h3>
+                  <p class="uppercase mt-2">Quartz</p>
+               </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product5.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-3</h3>
+                  <p class="uppercase mt-2">Solar</p>
+               </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product4.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-4</h3>
+                  <p class="uppercase mt-2">Mechanical Watch</p>
+               </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product3.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-5</h3>
+                  <p class="uppercase mt-2">Digital Watch</p>
+               </div>
+               <div class="col-6 col-md-2 p-4 border-end border-bottom border-black d-flex flex-column justify-content-end">
+                  <img src="/assets/product6.png" class="img-fluid mb-auto" alt="Deskripsi gambar 1">
+                  <h3 class="fw-bold fs-4 fs-md-5 fs-lg-4 text-uppercase">00-6</h3>
+                  <p class="uppercase mt-2">Solar</p>
+               </div>
             </div>
             <ul class="pagination justify-content-center gap-3">
-                <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
-                <li class="page-item"><a>...</a></li>
-                <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+               <li class="page-item"><a class="page-link" href="#">&lt;</a></li>
+               <li class="page-item"><a>...</a></li>
+               <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
             </ul>
+         </main>
 
-        </main>
-
-      <!-- Footer -->
-       <!-- Copyright -->
-        <footer class="d-flex justify-content-between align-items-center pt-3 border-top border-black px-3">
-            <div class="flex-grow-1 text-center">
-                <small class="text-uppercase">&copy; 2024 Oisac.com. All Rights Reserved.</small>
+        <!-- FOOTER PLACEHOLDER DENGAN LOADING STATE -->
+        <div id="footer-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
             </div>
-            <!-- Social Media -->
-            <div class="d-flex gap-2">
-                <a href="#" class="text-black"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-black"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="text-black"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-black"><i class="fab fa-youtube"></i></a> 
-            </div>
-        </footer>
+        </div>
+    </div> 
 
-    <!-- Javascript dari bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="/script.js"></script>
-    </body>
+   </body>
 </html>
