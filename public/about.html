@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Desain Situs Web | About Us</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+      <link rel="stylesheet" href="style/style.css">
+   </head>
+   <body>
+      <div class="container-fluid" id="main-container">
+         <div id="header-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+         </div>
+         <main>
+            <h2 class="display-5 fw-bold text-uppercase mb-3 mt-3 border-bottom border-black pb-3">About Us: Our Passion for Oisac</h2>
+            <section class="row g-0 mb-4">
+               <div class="col-12 col-md-6 p-4 border border-black d-flex flex-column justify-content-between">
+                  <div>
+                     <h3 class="fw-bold fs-3 text-uppercase mb-3 border-bottom border-black pb-2">Our Story</h3>
+                     <p class="small">
+                        Oisac.com was born out of a deep passion for the world of horology, specifically for Oisac watches which have become a global icon. We are not just a seller, but collectors inspired by the innovation, durability, and timeless design of every Oisac product. Our goal is to present the best and most authentic collection, bridging past technology and current trends for enthusiasts across Indonesia.
+                     </p>
+                  </div>
+                  <img src="assets/about1.png" alt="Oisac Vintage collection" class="img-fluid mt-4 border border-black height-img">
+               </div>
+               <div class="col-12 col-md-6 p-4 border border-black border-top-0 border-md-top-0 border-start-0 border-end-0 border-bottom-0">
+                  <h3 class="fw-bold fs-4 text-uppercase mb-3 border-bottom border-black pb-2">Our Core Values</h3>
+                  <ul class="list-unstyled small">
+                     <li class="mb-2"><strong>Authenticity:</strong> We guarantee every product we sell is 100% genuine and sourced from official distributors.</li>
+                     <li class="mb-2"><strong>Passion:</strong> We are passionate about sharing knowledge about Oisac and helping you find the watch that best suits your personality.</li>
+                     <li class="mb-2"><strong>Reliability:</strong> Our services are designed to provide a safe, easy, and satisfying shopping experience.</li>
+                  </ul>
+                  <img src="assets/about2.png" alt="Oisac SHOCK-G watches" class="img-fluid mt-4 border border-black height-img">
+               </div>
+            </section>
+            <section class="row g-0 justify-content-center mb-4">
+               <div class="col-12 p-4 border border-black text-center">
+                  <h3 class="fw-bold fs-3 text-uppercase mb-3 border-bottom border-black pb-2">Meet the Team</h3>
+                  <div class="row g-4 justify-content-center">
+                     <div class="col-6 col-md-4 col-lg-3">
+                        <img src="assets/about3.png" alt="Team Member 1" class="rounded-circle img-fluid mb-2 border border-black height-img-team">
+                        <h4 class="fw-bold small">Prabowo Subianto</h4>
+                        <p class="text-muted small mb-0">Founder & CEO</p>
+                     </div>
+                     <div class="col-6 col-md-4 col-lg-3">
+                        <img src="assets/about4.png" alt="Team Member 2" class="rounded-circle img-fluid mb-2 border border-black height-img-team">
+                        <h4 class="fw-bold small">Gibran Rakabuming Raka</h4>
+                        <p class="text-muted small mb-0">Head of Operations</p>
+                     </div>
+                     <div class="col-6 col-md-4 col-lg-3">
+                        <img src="assets/about5.png" alt="Team Member 3" class="rounded-circle img-fluid mb-2 border border-black height-img-team">
+                        <h4 class="fw-bold small">Bahlil Lahadalia</h4>
+                        <p class="text-muted small mb-0">Customer Relations</p>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         </main>
+         <div id="footer-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+         </div>
+      </div>
+      <!-- Login Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">LOGIN</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+               </div>
+               <div class="modal-body">
+                  <form id="loginForm">
+                     <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-0" id="loginEmail" placeholder="Enter email" name="email">
+                        <label for="loginEmail">Email</label>
+                     </div>
+                     <div class="form-floating mb-3 position-relative">
+                        <input type="password" class="form-control rounded-0" id="loginPassword" placeholder="Enter password" name="pswd">
+                        <label for="loginPassword">Password</label>
+                        <span class="password-toggle-icon position-absolute top-50 end-0 translate-middle-y me-3">
+                        <i class="fas fa-eye"></i>
+                        </span>
+                     </div>
+                     <div id="login-message" class="alert alert-danger d-none"></div>
+                     <div class="form-check ms-1">
+                        <input class="form-check-input rounded-0 border border-black" type="checkbox" id="loginRememberMe" name="rememberMe">
+                        <label class="form-check-label small">Remember Me</label>
+                     </div>
+                     <p class="text-center mt-2 small">
+                        Not a member? 
+                        <a href="#" id="joinNowLink" class="fw-bold text-decoration-none">Join Now</a>
+                     </p>
+                     <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-dark rounded-0">Login</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Registration Modal -->
+      <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h4 class="modal-title">SIGN UP</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+               </div>
+               <div class="modal-body">
+                  <form id="signupForm">
+                     <div class="form-floating mb-3">
+                        <input type="text" class="form-control rounded-0" id="signupUsername" placeholder="Enter username" name="username">
+                        <label for="signupUsername">Username</label>
+                     </div>
+                     <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-0" id="signupEmail" placeholder="Enter email" name="email">
+                        <label for="signupEmail">Email</label>
+                     </div>
+                     <div class="form-floating mb-3 position-relative">
+                        <input type="password" class="form-control rounded-0" id="signupPassword" placeholder="Enter password" name="pswd">
+                        <label for="signupPassword">Password</label>
+                        <span class="password-toggle-icon position-absolute top-50 end-0 translate-middle-y me-3">
+                        <i class="fas fa-eye"></i>
+                        </span>
+                     </div>
+                     <div class="form-floating mb-3 position-relative">
+                        <input type="password" class="form-control rounded-0" id="confirmPassword" placeholder="Confirm password" name="confirm_pswd">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <span class="password-toggle-icon position-absolute top-50 end-0 translate-middle-y me-3">
+                        <i class="fas fa-eye"></i>
+                        </span>
+                     </div>
+                     <div class="form-check ms-1">
+                        <input class="form-check-input rounded-0 border border-black" type="checkbox" id="signupTerms" name="terms">
+                        <label class="form-check-label small">I accept all terms and conditions.</label>
+                     </div>
+                     <p class="text-center small mt-0 mb-0">Already a Member? 
+                        <a href="#" class="fw-bold text-decoration-none" data-bs-toggle="modal" data-bs-target="#myModal">Login!</a>
+                     </p>
+                     <div class="text-center mt-3">
+                        <button type="submit" form="signupForm" class="btn btn-dark rounded-0">Sign Up</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+      <script src="script.js"></script>
+   </body>
+</html>

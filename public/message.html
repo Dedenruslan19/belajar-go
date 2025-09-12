@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>
+         Admin | Connect
+      </title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous">
+      <link rel="stylesheet" href="style/style.css">
+   <body>
+      <div class="container-fluid" id="main-container">
+         <div id="header-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+               <span class="visually-hidden">
+               Loading...
+               </span>
+            </div>
+         </div>
+         <div class="container mt-5">
+            <h2 class="mb-4">Daftar Pesan</h2>
+            <table class="table table-bordered table-striped">
+               <thead class="table-dark">
+                  <tr>
+                     <th>ID</th>
+                     <th>Full Name</th>
+                     <th>Email</th>
+                     <th>Phone</th>
+                     <th>Subject</th>
+                     <th>Message</th>
+                     <th>Created At</th>
+                     <th>Aksi</th>
+                  </tr>
+               </thead>
+               <tbody id="messagesTable">
+                  <!-- Data pesan akan ditampilkan di sini -->
+               </tbody>
+            </table>
+         </div>
+         <!-- FOOTER PLACEHOLDER DENGAN LOADING STATE -->
+         <div id="footer-placeholder" class="placeholder-loading">
+            <div class="spinner-border text-primary" role="status">
+               <span class="visually-hidden">
+               Loading...
+               </span>
+            </div>
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+      <script src="script.js"></script>
+      <script>
+         async function loadMessages() {
+         try {
+            const response = await fetch("http://localhost:8000/messages");
+            const data = await response.json();
+         
+            if (data.success) {
+               const tableBody = document.getElementById("messagesTable");
+               tableBody.innerHTML = "";
+         
+               data.messages.forEach(msg => {
+               const row = `
+                  <tr>
+                     <td>${msg.message_id}</td>
+                     <td>${msg.full_name}</td>
+                     <td>${msg.email}</td>
+                     <td>${msg.phone || "-"}</td>
+                     <td>${msg.message_subject}</td>
+                     <td>${msg.your_message}</td>
+                     <td>${new Date(msg.created_at).toLocaleString()}</td>
+                     <td>
+                     <button class="btn btn-danger btn-sm delete-btn" data-id="${msg.message_id}">
+                        Delete
+                     </button>
+                     </td>
+                  </tr>
+               `;
+               tableBody.insertAdjacentHTML("beforeend", row);
+               });
+         
+               // Tambahkan listener ke tombol delete
+               document.querySelectorAll(".delete-btn").forEach(btn => {
+               btn.addEventListener("click", async (e) => {
+                  const id = e.target.getAttribute("data-id");
+                  if (confirm("Yakin ingin menghapus pesan ini?")) {
+                     try {
+                     const res = await fetch(`http://localhost:8000/messages/${id}`, {
+                        method: "DELETE"
+                     });
+                     const result = await res.json();
+                     alert(result.message);
+         
+                     // Reload tabel setelah delete berhasil
+                     loadMessages();
+                     } catch (err) {
+                     console.error("Error deleting message:", err);
+                     alert("Gagal menghapus pesan.");
+                     }
+                  }
+               });
+               });
+         
+            } else {
+               alert("Gagal mengambil data pesan!");
+            }
+         } catch (error) {
+            console.error("Error:", error);
+            alert("Terjadi kesalahan saat mengambil data pesan.");
+         }
+         }
+         
+         document.addEventListener("DOMContentLoaded", loadMessages);
+      </script>
+   </body>
+</html>
