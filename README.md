@@ -9,7 +9,7 @@
 - menampilkan nilai base 16 : F 13 
 - menampilkan unicode karakter Я : U+042F
 - menampilkan float : 123.456000 
-- menampilkan float scientific : 1.234560E+02 expected output
+- menampilkan float scientific : 1.234560E+02
 
-Expected Output: 
-![alt text](image.png)
+- Expected Output: 
+- ![alt text](image.png)
