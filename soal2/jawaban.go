@@ -1,17 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 // function untuk menentukan bilangan prima
 func isPrime(n int) bool {
-	// jika bilangan di bawah 2, kembalikan nilai false
-	if n < 2 {
+	// jika bilangan kurang dari sama dengan 1, kembalikan nilai false
+	if n <= 1 {
 		return false
 	}
-	// iterasi untuk pengecekan value tersebut bilangan prima atau tidak 
+	// iterasi untuk pengecekan value tersebut bilangan prima atau tidak
 	for i := 2; i*i <= n; i++{
-		// jika value tersebut habis dibagi maka return false
-		if n % i == 0{
+		if n%i == 0{
+			// jika value tersebut habis dibagi maka return false
 			return false
 		}
 	}
@@ -19,41 +22,58 @@ func isPrime(n int) bool {
 }
 
 func main() {
-	// definisikan variable grade sebagai float64
-	var lowerInt int
-	var upperInt int
-	// print untuk input user
-	fmt.Print("Enter the lower bound: ")
-	// definisikan variable err1 untuk handling error pada lowerInt
-	// gunakan pointer untuk merubah value dari lowerInt
-	_, err1 := fmt.Scanln(&lowerInt)
+	// definisikan var untuk dicek dengan func isPrime()
+    var lowerInt int
+    var upperInt int
 
-	// validasi input lowerInt, 
-	// jika input berupa string / input bukan bilangan prima maka tampilkan Invalid input, 
-	// jika valid lanjutkan proses
-	if err1 != nil || lowerInt < 0 {
-		fmt.Println("Invalid input")
-		return
-	}
+	// infinite loop
+    for {
+		// definisikan var dari input
+        var lowerInput string
+        fmt.Print("Enter the lower bound: ")
+        fmt.Scan(&lowerInput)
 
-	// definisikan variable err1 untuk handling error pada upperInt
-	// gunakan pointer untuk merubah value dari upperInt
-	fmt.Print("Enter the upper bound: ")
-	_, err2 := fmt.Scanln(&upperInt)
+        // handling error jika input berupa string (mengecek string yang diinput apakah ada pada int)
+        lower, err1 := strconv.Atoi(lowerInput)
+        if err1 != nil {
+            fmt.Println("Invalid input. Please enter a valid integer for lower bound.")
+            continue
+        }
+		// jika ada, simpan pada lowerInt untuk dicek
+        lowerInt = lower
 
-	// validasi input upperInt, 
-	// jika input berupa string / input tidak lebih besar dari lowerInt maka tampilkan invalid input, 
-	// jika valid lanjutkan proses
-	if err2 != nil || lowerInt > upperInt {
-		fmt.Println("Invalid input")
-	}
+		// nested loop lanjutan untuk input ke upperInt
+        for {
+			// definisikan var dari input
+            var upperInput string
+            fmt.Print("Enter the upper bound: ")
+            fmt.Scan(&upperInput)
+            
+			// handling error jika input berupa string (mengecek string yang diinput apakah ada pada int)
+            upper, err2 := strconv.Atoi(upperInput)
+            if err2 != nil {
+                fmt.Println("Invalid input. Please enter a valid integer for upper bound.")
+                continue
+            }
 
-	
-	fmt.Printf("Prime numbers between %d and %d are: \n", lowerInt, upperInt)
-	// perulangan untuk menampilkan setiap value yang merupakan bilangan prima
-	for i := lowerInt; i <= upperInt ; i++{
-		if isPrime(i){
-			fmt.Print(i, "\n")
-		}
-	}
+            // pengecekan lanjutan upper harus lebih besar dari lower
+            if upper < lower {
+                fmt.Println("Upper bound must be greater than or equal to lower bound.")
+                continue
+            }
+
+            // jika value merupakan int, simpan pada upperInt untuk dicek
+            upperInt = upper
+            break // keluar dari loop upper bound setelah input valid, lanjutkan ke loop lower bound
+        }
+        break // keluar dari loop lower bound setelah loop upper bound selesai
+    }
+
+	// tampilkan ke layar nilai dari lowerInt dan upperInt kemudian panggil fungsi isPrime()
+    fmt.Printf("Prime numbers between %d and %d are:\n", lowerInt, upperInt)
+    for i := lowerInt; i <= upperInt; i++ {
+        if isPrime(i) {
+            fmt.Println(i)
+        }
+    }
 }
