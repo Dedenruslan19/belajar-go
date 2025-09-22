@@ -44,15 +44,17 @@ func main() {
 			continue
 		}
 
-		fmt.Printf("How many %s would you like?\n", inputFood)
-		var qty int
-		_, err = fmt.Scanln(&qty)
-		if err != nil || qty <= 0 {
-			fmt.Println("Invalid quantity")
-			continue
+		for {
+			fmt.Printf("How many %s would you like?\n", inputFood)
+			var qty int
+			_, err = fmt.Scanln(&qty)
+			if err != nil || qty <= 0 {
+				fmt.Println("Invalid quantity")
+				continue
+			}
+			dataOrder[inputFood] += qty
+			break
 		}
-
-		dataOrder[inputFood] += qty
 	}
 
 	// hitung total
