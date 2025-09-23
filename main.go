@@ -1,58 +1,79 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type MenuItem struct {
+	Name  string
+	Price float64
+}
+
+const (
+	taxRate = 0.07
+	tipRate = 0.20
 )
 
 func main() {
-	menu := map[string]float64{
-		"Pizza":  10.99,
-		"Salad":  7.99,
-		"Burger": 8.99,
-		"Fries":  2.99,
-		"Soda":   1.99,
-		"Rice":   3.99,
+	menu := []MenuItem{
+		{"Pizza", 10.99},
+		{"Salad", 7.99},
+		{"Burger", 8.99},
+		{"Fries", 2.99},
+		{"Soda", 1.99},
+		{"Rice", 3.99},
 	}
+
+	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Println("Welcome to Hacktiv8 restaurant!")
 	fmt.Println("Here's our menu:")
-	for item, value := range menu {
-		fmt.Printf("%s: $%.2f\n", item, value)
+	for _, item := range menu {
+		fmt.Printf("%s: $%.2f\n", item.Name, item.Price)
 	}
 
-	// Simpan user input ke map baru (item -> jumlah)
+	// order map -> item name : qty
 	dataOrder := make(map[string]int)
 
 	for {
-		fmt.Print("What would you like to order? (Type 'done' to finish)\n")
+		fmt.Print("\nWhat would you like to order? (Type 'done' to finish): ")
+		inputFood, _ := reader.ReadString('\n')
+		inputFood = strings.TrimSpace(inputFood)
 
-		var inputFood string
-		_, err := fmt.Scanln(&inputFood)
-		if err != nil {
-			fmt.Println("Error:", err)
-			continue
-		}
-
-		if inputFood == "done" {
+		if strings.ToLower(inputFood) == "done" {
 			break
 		}
 
 		// cek apakah makanan ada di menu
-		_, exist := menu[inputFood]
-		if !exist {
+		var selectedItem *MenuItem
+		for _, item := range menu {
+			if strings.EqualFold(item.Name, inputFood) {
+				selectedItem = &item
+				break
+			}
+		}
+
+		if selectedItem == nil {
 			fmt.Println("Sorry, that menu item doesn't exist.")
 			continue
 		}
 
 		for {
-			fmt.Printf("How many %s would you like?\n", inputFood)
-			var qty int
-			_, err = fmt.Scanln(&qty)
+			fmt.Printf("How many %s would you like? ", selectedItem.Name)
+			qtyStr, _ := reader.ReadString('\n')
+			qtyStr = strings.TrimSpace(qtyStr)
+			qty, err := strconv.Atoi(qtyStr)
+
 			if err != nil || qty <= 0 {
-				fmt.Println("Invalid quantity")
+				fmt.Println("Invalid quantity, please try again.")
 				continue
 			}
-			dataOrder[inputFood] += qty
+
+			dataOrder[selectedItem.Name] += qty
 			break
 		}
 	}
@@ -60,19 +81,20 @@ func main() {
 	// hitung total
 	fmt.Println("\nYour order summary:")
 	var subtotal float64
-	for item, qty := range dataOrder {
-		price := menu[item]
-		itemTotal := price * float64(qty)
-		fmt.Printf("%s: %d x $%.2f = $%.2f\n", item, qty, price, itemTotal)
-		subtotal += itemTotal
+	for _, item := range menu {
+		if qty, ok := dataOrder[item.Name]; ok {
+			itemTotal := item.Price * float64(qty)
+			fmt.Printf("%s: %d x $%.2f = $%.2f\n", item.Name, qty, item.Price, itemTotal)
+			subtotal += itemTotal
+		}
 	}
 
-	tax := subtotal * 0.07
-	tip := subtotal * 0.20
+	tax := subtotal * taxRate
+	tip := subtotal * tipRate
 	total := subtotal + tax + tip
 
-	fmt.Printf("Subtotal: $%.2f\n", subtotal)
-	fmt.Printf("Tax (7%%): $%.2f\n", tax)
-	fmt.Printf("Tip (20%%): $%.2f\n", tip)
+	fmt.Printf("\nSubtotal: $%.2f\n", subtotal)
+	fmt.Printf("Tax (%.0f%%): $%.2f\n", taxRate*100, tax)
+	fmt.Printf("Tip (%.0f%%): $%.2f\n", tipRate*100, tip)
 	fmt.Printf("Total: $%.2f\n", total)
 }
