@@ -1,77 +1,58 @@
 package main
 
 import (
-	"fmt"
+	"sort"
 	"sync"
 	"time"
 )
 
+// Struct untuk Task
 type Task struct {
-	Name string
-}
-
-func Driver(driverID int, task Task, wg *sync.WaitGroup, runID int) {
-	defer wg.Done()
-
-	time.Sleep(time.Duration(driverID) * 100 * time.Millisecond)
-
-	fmt.Printf("Run %d:\n", runID)
-	fmt.Printf("Driver %d: Processing Task: %s\n", driverID, task.Name)
+	Name     string
+	Priority int
 }
 
 func main() {
+	//Define isi (Name, Priority) untuk struct Task dengan slice
 	tasks := []Task{
-		{Name: "Emergency Medical Transport"},
-		{Name: "Delivery at Zone A"},
-		{Name: "Pickup at Zone B"},
+		{"Emergency Medical Transport", 1},
+		{"Delivery at Zone A", 2},
+		{"Pickup at Zone B", 3},
 	}
 
-	simulateRun(1,
-		[]Assignment{
-			{DriverID: 2, Task: tasks[0]},
-			{DriverID: 1, Task: tasks[1]}, 
-			{DriverID: 2, Task: tasks[2]}, 
-		})
+	// Urutkan task berdasarkan priority secara ASC
+	// Define anon func dengan bool untuk membandingkan priority berdasarkan index
+	sort.Slice(tasks, func(i, j int) bool {
+		// jika index i lebih kecil dari j maka balikkan nilai sebagai true
+		return tasks[i].Priority < tasks[j].Priority
+	})
 
-
-	simulateRun(2,
-		[]Assignment{
-			{DriverID: 1, Task: tasks[0]}, 
-			{DriverID: 2, Task: tasks[1]}, 
-			{DriverID: 1, Task: tasks[2]},
-		})
-
-	simulateRun(3,
-		[]Assignment{
-			{DriverID: 2, Task: tasks[0]},
-			{DriverID: 1, Task: tasks[1]},
-			{DriverID: 1, Task: tasks[2]}, 
-		})
-
-}
-
-
-type Assignment struct {
-	DriverID int
-	Task     Task
-}
-
-func simulateRun(runID int, assignments []Assignment) {
+	// Define buffer channel untuk ditangkap oleh driver/worker
+	taskChan := make(chan Task, len(tasks))
 	var wg sync.WaitGroup
-	
 
-	fmt.Printf("\nRun %d:\n", runID)
-
-	for _, assignment := range assignments {
+	// Perulangan untuk goroutines driver yang siap untuk menerima task
+	for i := 1; i <= 2; i++ {
 		wg.Add(1)
-		go func(a Assignment) {
-			fmt.Printf("Driver %d: Processing Task: %s\n", a.DriverID, a.Task.Name)
-			time.Sleep(20 * time.Millisecond)
-			wg.Done()
-		}(assignment)
+		go driver(i, taskChan, &wg)
 	}
 
-	wg.Wait() 
+	// kirim task sesuai priority ke channel dan memberi jeda selama 50 * time.Millisecond
+	for _, t := range tasks {
+		taskChan <- t
+		time.Sleep(50 * time.Millisecond)
+	}
+	// Menutup taskChan bahwa tidak ada lagi tugas yang dapat dikerjakan
+	close(taskChan)
 
-	fmt.Println("All tasks have completed")
+	wg.Wait()
+}
+
+// func driver untuk menerima task dari taskChan dan simulasi
+func driver(id int, taskChan <-chan Task, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for task := range taskChan {
+		// Simulate processing the task
+		println("Driver", id, "processing:", task.Name)
+	}
 }
