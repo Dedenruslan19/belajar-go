@@ -1,70 +1,44 @@
 package main
 
 import (
-	"fmt"
-	"sort"
-	"sync"
+	"fmt"  
+	"sync" 
 )
 
-// Driver merepresentasikan seorang driver
-type Driver struct {
-	ID int
-}
+// runTask menjalankan serangkaian tugas secara berurutan
+func runTask(taskName string, n int) {
+	var wg sync.WaitGroup 
+	// Membuat channel ber-buffer 1 sebagai 'token' giliran
+	ch := make(chan int, 1) 
+	// Memulai buffer dari 1
+	ch <- 1
 
-// Task dengan prioritas (semakin kecil = semakin penting)
-type Task struct {
-	Name     string
-	Priority int
-}
-
-// Fungsi driver untuk menangani task
-func (d *Driver) work(taskChannel <-chan Task, wg *sync.WaitGroup) {
-	defer wg.Done()
-	for task := range taskChannel {
-		fmt.Printf("Driver %d is handling task: %s\n", d.ID, task.Name)
+	// Perulangan untuk membuat 'n' goroutine/pekerja
+	for i := 1; i <= n; i++ {
+		// Menambah goroutines setiap ada perulangan
+		wg.Add(1)
+		// Luncurkan goroutine baru (pekerja)
+		go func(i int) {
+			defer wg.Done()
+			// Perulangan tak terbatas untuk mencoba mendapatkan giliran
+			for {
+				val := <-ch // Ambil token giliran dari channel (blokir sampai ada)
+				if val == i { // Cek apakah token (val) cocok dengan nomor urut goroutine (i)
+					fmt.Printf("%s: %d\n", taskName, i) // Cetak output (eksekusi tugas)
+					ch <- i + 1 // Kirim token giliran berikutnya (i + 1)
+					break // Keluar dari perulangan for (goroutine selesai)
+				} else {
+					ch <- val // Jika giliran bukan miliknya, kembalikan token ke channel
+				}
+			}
+		}(i) // Panggil/jalankan fungsi anonim dengan nilai i saat ini
 	}
+	wg.Wait() // Tunggu sampai semua goroutine (worker) memanggil wg.Done()
+	close(ch) // Tutup channel setelah semua tugas selesai
 }
 
 func main() {
-	var wg sync.WaitGroup
-
-	// Daftar driver
-	drivers := []*Driver{
-		{ID: 1},
-		{ID: 2},
-		{ID: 3},
-	}
-
-	// Daftar task dengan prioritas
-	tasks := []Task{
-		{"Pick up passenger A", 2},
-		{"Emergency Medical Transport", 1}, // high priority
-		{"Deliver package C", 3},
-		{"Pick up passenger D", 2},
-		{"Pick up passenger E", 2},
-	}
-
-	// Urutkan task berdasarkan prioritas
-	sort.Slice(tasks, func(i, j int) bool {
-		return tasks[i].Priority < tasks[j].Priority
-	})
-
-	// Buat buffered channel untuk task
-	taskChannel := make(chan Task, len(tasks))
-
-	// Masukkan semua task ke channel
-	for _, task := range tasks {
-		taskChannel <- task
-	}
-	close(taskChannel)
-
-	// Jalankan driver
-	for _, driver := range drivers {
-		wg.Add(1)
-		go driver.work(taskChannel, &wg)
-	}
-
-	// Tunggu semua task selesai
-	wg.Wait()
-	fmt.Println("All tasks have completed.")
+	runTask("Task A", 5) 
+	runTask("Task B", 5) 
+	runTask("Task C", 5) 
 }
