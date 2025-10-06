@@ -41,29 +41,3 @@ CREATE TABLE Payments (
     
     FOREIGN KEY (BookingID) REFERENCES Bookings(BookingID)
 );
-
--- -- Membuat table Games
--- CREATE TABLE Games (
---     GameId SERIAL PRIMARY KEY, 
---     Title VARCHAR(255), 
---     Price DECIMAL(10,2)
--- );
-
--- -- Membuat table Orders
--- CREATE TABLE Orders (
---     OrderId SERIAL PRIMARY KEY,
---     CustomerID INT,
-    
---     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
--- );
-
--- -- Membuat table OrderDetails
--- CREATE TABLE OrderDetails (
---     OrderDetails SERIAL PRIMARY KEY,
---     OrderId INT,
---     GameId INT,
---     Quantity INT,
-
---     FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
---     FOREIGN KEY (GameId) REFERENCES Games(GameId)
--- )
