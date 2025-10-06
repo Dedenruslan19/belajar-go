@@ -1,53 +1,68 @@
 ## ERD Title: Video Game Store System
 
 1. Entities and Their Attributes:
-Entity: Table_Name (e.g., Customers)
+Entity: Customers
 
 ## Attributes:
 
-- Field_Name (Attribute) : e.g., CustomerId (PK, AI)
-- Field (Datatype)
-- etc...
+- Field_Name (Attribute) : 
+CustomerID (PK) int, Auto Increment
+FirstName varchar(50) Not Null
+LastName varchar(50) Not Null
+Email varchar(100)
+PhoneNumber	varchar(20)
 
-A. Entity: Table_Name
+A. Entity: Fields
 
-- Attributes:
-- Field_Name (Attribute) : e.g., FieldId (PK, AI)
-- Field (Datatype)
-- etc...
+FieldID (PK) int, Auto Increment
+FieldName varchar(100) Not Null
+FieldSize varchar(10) Not Null
+Location varchar(100)
+HourlyRate decimal(10, 2) Not Null
 
-B. Entity: Table_Name
+B. Entity: Bookings
+BookingID (PK) int, Auto Increment
+CustomerID (FK)	int Not Null
+FieldID (FK) int Not Null
+BookingDate	date Not Null
+StartTime time Not Null
+EndTime	time Not Null
+TotalAmount	decimal(10, 2) Not Null
 
-- Attributes:
-- Field_Name (Attribute) : e.g., FieldId (PK, AI)
-- Field (Datatype)
-- etc...
-
-C. Entity: Table_Name
-
-- Attributes:
-- Field_Name (Attribute) : e.g., FieldId (PK, AI)
-- Field (Datatype)
-- etc...
+C. Entity: Payments
+PaymentID (PK) int, Auto Increment
+BookingID (FK) int Not Null
+PaymentDate	date Not Null
+PaymentAmount decimal(10, 2) Not Null
+PaymentMethod varchar(50)
 
 ## Relationships:
 - Table_Name to Table_Name: (e.g., Customers to Orders)
 
 A. Type: One to Many
-- Description: One customer can place many orders, but each order is linked to only one customer.
-- Table_Name to Table_Name: (e.g., Orders to Order Details)
+Customers to Bookings
+Description: Satu pelanggan (Customers) dapat memiliki banyak pemesanan (Bookings), tetapi setiap pemesanan harus terhubung ke hanya satu pelanggan.
 
 B. Type: One to Many
-- Description: One order can have multiple order details, but each order detail is linked to only one order.
-- Table_Name to Table_Name: (e.g., Games to Order Details)
+Fields to Bookings
+Description: Satu lapangan (Fields) dapat dipesan dalam banyak pemesanan (Bookings), tetapi setiap pemesanan hanya terkait dengan satu lapangan.
 
 C. Type: One to Many
-- Description: One game can appear in many order details, but each order detail is linked to only one game.
+Bookings to Payments
+Description: Satu pemesanan (Bookings) dapat memiliki banyak pembayaran (Payments) (misalnya, pembayaran DP dan pelunasan), tetapi setiap pembayaran harus terhubung ke hanya satu pemesanan.
 
 ## Integrity Constraints:
-- The Price in Games and Orders should be a positive float.
-- etc...
+Primary Keys (PK): CustomerID, FieldID, BookingID, dan PaymentID harus unik dan tidak boleh NULL.
+
+Foreign Keys (FK): CustomerID dan FieldID di tabel Bookings, serta BookingID di tabel Payments harus merujuk pada nilai yang ada di tabel induk.
+
+Not Null (NN): Semua atribut yang ditandai NN (seperti HourlyRate, TotalAmount, BookingDate, FirstName) harus memiliki nilai.
+
+Business Rule: HourlyRate di tabel Fields dan TotalAmount di tabel Bookings serta PaymentAmount di tabel Payments harus bernilai positif.
 
 ## Additional Notes:
-- The Order Details table allows the system to handle orders with multiple games.
-- etc...
+Normalisasi: Diagram ini menunjukkan normalisasi hingga Third Normal Form (3NF) yang baik, memisahkan data pelanggan, lapangan, pemesanan, dan pembayaran.
+
+Waktu Pemesanan: Tabel Bookings mencatat interval waktu spesifik (StartTime dan EndTime) untuk pemesanan.
+
+Biaya: TotalAmount dalam Bookings kemungkinan dihitung berdasarkan HourlyRate dari Fields dikalikan durasi pemesanan.

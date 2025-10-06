@@ -27,7 +27,6 @@ CREATE TABLE Bookings (
     BookingDate DATE NOT NULL,
     StartTime TIME NOT NULL,
     EndTime TIME NOT NULL,
-    TotalAmount DECIMAL(10, 2) NOT NULL,
     
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     FOREIGN KEY (FieldID) REFERENCES Fields(FieldID)
@@ -42,7 +41,6 @@ CREATE TABLE Payments (
     
     FOREIGN KEY (BookingID) REFERENCES Bookings(BookingID)
 );
-
 
 -- -- Membuat table Games
 -- CREATE TABLE Games (
